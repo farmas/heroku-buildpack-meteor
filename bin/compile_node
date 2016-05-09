@@ -127,28 +127,28 @@ else
   use_cache=true
 fi
 
-if [ "$modules_source" == "" ]; then
-  info "Skipping dependencies (no source for node_modules)"
+#if [ "$modules_source" == "" ]; then
+#  info "Skipping dependencies (no source for node_modules)"
+#
+#elif [ $modules_source == "prebuilt" ]; then
+#  info "Rebuilding any native modules for this architecture"
+#  npm rebuild 2>&1 | indent
+#  info "Installing any new modules"
+#  npm install --quiet --userconfig $build_dir/.npmrc 2>&1 | indent
 
-elif [ $modules_source == "prebuilt" ]; then
-  info "Rebuilding any native modules for this architecture"
-  npm rebuild 2>&1 | indent
-  info "Installing any new modules"
-  npm install --quiet --userconfig $build_dir/.npmrc 2>&1 | indent
+#elif $use_cache; then
+#  info "Restoring node modules from cache"
+#  cp -r $cache_dir/node/node_modules $build_dir/
+#  info "Pruning unused dependencies"
+#  npm prune 2>&1 | indent
+#  info "Installing any new modules"
+#  npm install --quiet --userconfig $build_dir/.npmrc 2>&1 | indent
 
-elif $use_cache; then
-  info "Restoring node modules from cache"
-  cp -r $cache_dir/node/node_modules $build_dir/
-  info "Pruning unused dependencies"
-  npm prune 2>&1 | indent
-  info "Installing any new modules"
-  npm install --quiet --userconfig $build_dir/.npmrc 2>&1 | indent
-
-else
+#else
   info "Installing node modules"
   touch $build_dir/.npmrc
   npm install --quiet --userconfig $build_dir/.npmrc 2>&1 | indent
-fi
+#fi
 
 ####### Create a Procfile if possible
 
